@@ -35,7 +35,7 @@ include "COMPONENT/nav.php";
 ); ?>" /></a>
 			<div class=" absolute top-3 text-black left-4 font-black px-2 bg-white rounded-lg"><?php echo $info["NAMES"]; ?></div>
 			<div class=" absolute absolute top-10 rounded-lg px-2 <?php if ($info["STATUS"] == 'OPEN'){echo "bg-green-700";}else{echo "bg-red-700";} ?> left-4"><?php echo $info[
-       "STATUS"];?> <?php if ($info["STATUS"] == 'CLOSE'){echo $info['DATE-S'];}?>  <?php if ($info["STATUS"] == 'CLOSE'){echo '> '; echo $info['DATE-E'];}?></div>
+       "STATUS"];?> <?php if ($info["STATUS"] == 'CLOSE'){echo $info['DATES'];}?>  <?php if ($info["STATUS"] == 'CLOSE'){echo '> '; echo $info['DATEE'];}?></div>
 		</div>
 		<?php }
   ?>
@@ -43,7 +43,7 @@ include "COMPONENT/nav.php";
 	</div>
 	<div class="flex-[50%] rounded-lg">
 		<?php
-  $data = mysqli_query($con, "SELECT * FROM memos");
+  $data = mysqli_query($con, "SELECT * FROM memos ORDER BY id DESC");
   $rowcount=mysqli_num_rows($data);
   ?><h1 class="text-xl text-white font-bold ml-10 mb-7">MEMOS [<?php echo $rowcount; ?>]</h1>
   <div class="h-screen w-full overflow-y-auto scrollbars"><?php
@@ -51,7 +51,7 @@ include "COMPONENT/nav.php";
     <?php
     $TAG = $info["TAG"];
      $tagdata = mysqli_query($con, "SELECT * FROM tags WHERE TAG='$TAG'");
-     $taginfo = mysqli_fetch_array($tagdata)
+     $taginfo = mysqli_fetch_array($tagdata);
  ?>
 		<div class="relative drop-shadow-2xl center rounded-lg mx-7 mb-7 p-5 bg-gray-400">
         <div class='h-5 w-10 rounded-full <?php echo $taginfo["COLOR"]; ?>'><p class="pl-11 text-white pb-3"><?php echo $info['TAG']; ?></p></div>

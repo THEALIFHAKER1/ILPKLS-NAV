@@ -9,22 +9,22 @@ if (isset($_POST["update"])) {
     $ID = $_POST["ID"];
     $NAMES = $_POST["NAMES"];
     $STATUS = $_POST["STATUS"];
-	echo $STATUS;
     $LINK = $_POST["LINK"];
+	$MANAGERID = $_POST["MANAGERID"];
     if (in_array($fileType, $allowTypes)) {
         $image = $_FILES["image"]["tmp_name"];
         $imgContent = addslashes(file_get_contents($image));
         $result = mysqli_query(
             $con,
             "UPDATE places SET
-     IMG='$imgContent',NAMES='$NAMES',STATUS='$STATUS',LINK='$LINK'
+     IMG='$imgContent',MANAGERID='$MANAGERID',NAMES='$NAMES',STATUS='$STATUS',LINK='$LINK'
      WHERE ID='$ID'"
         );
     } else {
         $result = mysqli_query(
             $con,
             "UPDATE places SET
-     NAMES='$NAMES',LINK='$LINK',STATUS='$STATUS' WHERE ID='$ID'"
+     MANAGERID='$MANAGERID',NAMES='$NAMES',LINK='$LINK',STATUS='$STATUS' WHERE ID='$ID'"
         );
     }
     if ($result) { ?>
@@ -59,6 +59,7 @@ while ($res = mysqli_fetch_array($result)) {
     $NAMES = $res["NAMES"];
     $STATUS = $res["STATUS"];
     $LINK = $res["LINK"];
+	$MANAGERID = $res['MANAGERID'];
 }
 ?>
 <div class="flex items-center justify-center">
@@ -87,6 +88,18 @@ while ($res = mysqli_fetch_array($result)) {
 					<label class="block">Place links</label>
 					<input name="LINK" type="text" required class="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600" value="<?php echo $LINK; ?>">
 				</div>
+                <div class="mt-4">
+                <label class="block">TAG</label>
+                <select class="form-select appearance-none block w-full px-3 mt-2 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" aria-label="Default select example" name="MANAGERID" required>
+                <option disabled selected value> -- select an option -- </option>
+				<?php
+     $tagdata = mysqli_query($con, "SELECT * FROM users WHERE ACCESS='management'");
+while($taginfo = mysqli_fetch_array($tagdata)){ ?>
+	<option value="<?php echo $taginfo["ID"]; ?>"><?php echo $taginfo["NAME"]; ?></option>
+<?php }
+ ?>  
+      </select> 
+                </div>
 				<td><input type="hidden" name="ID" value=<?php echo $_GET["update_id"]; ?>>
 					<div class="flex items-baseline justify-between">
 						<button type="submit" name="update" class="px-6 py-2 mt-4 text-white bg-blue-600 rounded-lg hover:bg-blue-900">Update</button>

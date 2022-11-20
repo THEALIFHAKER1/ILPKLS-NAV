@@ -1,6 +1,6 @@
 <?php
 include "COMPONENT/DB/connection.php";
-include "COMPONENT/auth-admin.php";
+include "COMPONENT/auth-management.php";
 include "COMPONENT/nav.php";
 if(isset($_POST['update'])){ 
     $ID = $_POST['ID'];
@@ -8,7 +8,7 @@ if(isset($_POST['update'])){
     $TAG = $_POST['TAG'];
     $CONTENT = $_POST['CONTENT'];
     $DATE = $_POST['DATE'];
-     $result = mysqli_query($con, "UPDATE memos SET
+     $result = mysqli_query($con, "UPDATE placesmemos SET
      TITLE='$TITLE',TAG='$TAG', CONTENT='$CONTENT' ,DATE='$DATE'
      WHERE ID='$ID'");
 if($result){
@@ -38,11 +38,11 @@ else{
     }
 ?>
 <div class="p-8 m-8 bg-white rounded-lg">
-    <button type="button" class="inline-block px-6 py-2.5 bg-red-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-red-700 hover:shadow-lg focus:bg-red-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-red-800 active:shadow-lg transition duration-150 ease-in-out"><a href="dashboard_admin.php">BACK</a></button>
+    <button type="button" class="inline-block px-6 py-2.5 bg-red-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-red-700 hover:shadow-lg focus:bg-red-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-red-800 active:shadow-lg transition duration-150 ease-in-out"><a href="dashboard_management.php">BACK</a></button>
 </div>
 <?php
 $BIL = $_GET['update_bil'];
-$result = mysqli_query($con, "SELECT * FROM memos WHERE ID='$BIL'");
+$result = mysqli_query($con, "SELECT * FROM placesmemos WHERE ID='$BIL'");
 while($res = mysqli_fetch_array($result))
 {
     $ID =$res['ID'];
