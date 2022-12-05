@@ -2,16 +2,16 @@
 include "COMPONENT/DB/connection.php";
 include "COMPONENT/header.php";
 include "COMPONENT/nav.php";
-if(isset($_POST['update'])){ 
-    $ID = $_POST['ID'];
-    $NAME = $_POST['NAME'];
-    $PASS = $_POST['PASS'];
-    $ACCESS = $_POST['ACCESS'];
-     $rekod = "INSERT INTO users (ID,NAME,PASS,ACCESS)
-     VALUES ('$ID','$NAME','$PASS','$ACCESS')";
-     $result = mysqli_query($con, $rekod);
-if($result){
-    ?>
+if (isset($_POST["update"])) {
+    $ID = $_POST["ID"];
+    $NAME = $_POST["NAME"];
+    $PASS = $_POST["PASS"];
+    $hash = md5($PASS);
+    $ACCESS = $_POST["ACCESS"];
+    $rekod = "INSERT INTO users (ID,NAME,PASS,ACCESS)
+     VALUES ('$ID','$NAME','$hash','$ACCESS')";
+    $result = mysqli_query($con, $rekod);
+    if ($result) { ?>
             <main x-data="app">
               <button type="button" @click="closeToast()" x-show="open" x-transition.duration.300ms class="fixed top-4 right-4 z-50 rounded-md bg-green-500 px-4 py-2 text-white transition hover:bg-green-600">
                 <div class="flex items-center space-x-2">
@@ -20,10 +20,7 @@ if($result){
                 </div>
               </button>
             </main>
-                <?php
-}
-else{
-    ?>
+                <?php } else { ?>
     <main x-data="app">
       <button type="button" @click="closeToast()" x-show="open" x-transition.duration.300ms class="fixed top-4 right-4 z-50 rounded-md bg-red-500 px-4 py-2 text-white transition hover:bg-red-600">
         <div class="flex items-center space-x-2">
@@ -32,15 +29,13 @@ else{
         </div>
       </button>
     </main>
-        <?php
-}
+        <?php }
 }
 ?>
 <div class="p-8 m-8 bg-white rounded-lg">
     <button type="button" class="inline-block px-6 py-2.5 bg-red-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-red-700 hover:shadow-lg focus:bg-red-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-red-800 active:shadow-lg transition duration-150 ease-in-out"><a href="dashboard_admin.php">BACK</a></button>
 </div>
-<?php
-?>
+<?php  ?>
 <div class="flex items-center justify-center">
     <div class="px-8 py-6 mt-20 text-left bg-white shadow-lg rounded-lg">
         <h3 class="text-2xl font-bold">REGISTER MAKLUMAT USERS</h3>

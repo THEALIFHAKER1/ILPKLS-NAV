@@ -10,7 +10,7 @@ if (isset($_POST["update"])) {
     $NAMES = $_POST["NAMES"];
     $STATUS = $_POST["STATUS"];
     $LINK = $_POST["LINK"];
-	$MANAGERID = $_POST["MANAGERID"];
+    $MANAGERID = $_POST["MANAGERID"];
     if (in_array($fileType, $allowTypes)) {
         $image = $_FILES["image"]["tmp_name"];
         $imgContent = addslashes(file_get_contents($image));
@@ -59,7 +59,7 @@ while ($res = mysqli_fetch_array($result)) {
     $NAMES = $res["NAMES"];
     $STATUS = $res["STATUS"];
     $LINK = $res["LINK"];
-	$MANAGERID = $res['MANAGERID'];
+    $MANAGERID = $res["MANAGERID"];
 }
 ?>
 <div class="flex items-center justify-center">
@@ -93,11 +93,16 @@ while ($res = mysqli_fetch_array($result)) {
                 <select class="form-select appearance-none block w-full px-3 mt-2 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" aria-label="Default select example" name="MANAGERID" required>
                 <option disabled selected value> -- select an option -- </option>
 				<?php
-     $tagdata = mysqli_query($con, "SELECT * FROM users WHERE ACCESS='management'");
-while($taginfo = mysqli_fetch_array($tagdata)){ ?>
-	<option value="<?php echo $taginfo["ID"]; ?>"><?php echo $taginfo["NAME"]; ?></option>
+    $tagdata = mysqli_query(
+        $con,
+        "SELECT * FROM users WHERE ACCESS='management'"
+    );
+    while ($taginfo = mysqli_fetch_array($tagdata)) { ?>
+	<option value="<?php echo $taginfo["ID"]; ?>"><?php echo $taginfo[
+    "NAME"
+]; ?></option>
 <?php }
- ?>  
+    ?>  
       </select> 
                 </div>
 				<td><input type="hidden" name="ID" value=<?php echo $_GET["update_id"]; ?>>

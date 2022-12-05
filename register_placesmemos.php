@@ -1,19 +1,15 @@
 <?php
 include "COMPONENT/DB/connection.php";
-include "COMPONENT/auth-management.php";
+include "COMPONENT/header.php";
 include "COMPONENT/nav.php";
+$placeid = $_GET["place_id"];
 if (isset($_POST["update"])) {
-    $ID = $_POST["ID"];
     $TITLE = $_POST["TITLE"];
     $TAG = $_POST["TAG"];
     $CONTENT = $_POST["CONTENT"];
-    $DATE = $_POST["DATE"];
-    $result = mysqli_query(
-        $con,
-        "UPDATE placesmemos SET
-     TITLE='$TITLE',TAG='$TAG', CONTENT='$CONTENT' ,DATE='$DATE'
-     WHERE ID='$ID'"
-    );
+    $rekod = "INSERT INTO placesmemos (PLACESID,TITLE,TAG,CONTENT)
+     VALUES ('$placeid','$TITLE','$TAG','$CONTENT')";
+    $result = mysqli_query($con, $rekod);
     if ($result) { ?>
             <main x-data="app">
               <button type="button" @click="closeToast()" x-show="open" x-transition.duration.300ms class="fixed top-4 right-4 z-50 rounded-md bg-green-500 px-4 py-2 text-white transition hover:bg-green-600">
@@ -38,25 +34,15 @@ if (isset($_POST["update"])) {
 <div class="p-8 m-8 bg-white rounded-lg">
     <button type="button" class="inline-block px-6 py-2.5 bg-red-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-red-700 hover:shadow-lg focus:bg-red-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-red-800 active:shadow-lg transition duration-150 ease-in-out"><a href="dashboard_management.php">BACK</a></button>
 </div>
-<?php
-$BIL = $_GET["update_bil"];
-$result = mysqli_query($con, "SELECT * FROM placesmemos WHERE ID='$BIL'");
-while ($res = mysqli_fetch_array($result)) {
-    $ID = $res["ID"];
-    $TITLE = $res["TITLE"];
-    $TAG = $res["TAG"];
-    $CONTENT = $res["CONTENT"];
-    $DATE = $res["DATE"];
-}
-?>
+<?php  ?>
 <div class="flex items-center justify-center">
     <div class="px-8 py-6 mt-20 text-left bg-white shadow-lg rounded-lg">
-        <h3 class="text-2xl font-bold">UPDATE MAKLUMAT <?php echo $TITLE; ?></h3>
+        <h3 class="text-2xl font-bold">REGISTER MAKLUMAT MEMOS</h3>
         <form method="post" enctype='multipart/form-data'>
             <div class="mt-4">
-            <div class="mt-4">
+                <div class="mt-4">
                 <label class="block">TITLE</label>
-                <input name="TITLE" type="text" required class="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600" value="<?php echo $TITLE; ?>">  
+                <input name="TITLE" type="text" required class="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600">  
                 </div>
                 <div class="mt-4">
                 <label class="block">TAG</label>
@@ -74,16 +60,11 @@ while ($res = mysqli_fetch_array($result)) {
                 </div>
                 <div class="mt-4">
                 <label class="block">CONTENT</label>
-				<textarea name="CONTENT" cols="100" rows="10"><?php echo $CONTENT; ?></textarea>
-</div>
-                <div class="mt-4">
-                <label class="block">DATE</label>
-				<input name="DATE" type="text" required class="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600" value="<?php echo $DATE; ?>">               </div>
+                <textarea name="CONTENT" cols="100" rows="10"></textarea>
                 </div>
-                <td><input type="hidden" name="ID" 
-value=<?php echo $BIL; ?>>
+                <td>
                 <div class="flex items-baseline justify-between">
-                    <button type="submit" name="update" class="px-6 py-2 mt-4 text-white bg-blue-600 rounded-lg hover:bg-blue-900">Update</button>
+                    <button type="submit" name="update" class="px-6 py-2 mt-4 text-white bg-blue-600 rounded-lg hover:bg-blue-900">REGISTER</button>
                     <button type="reset"><a class="text-sm text-blue-600 hover:underline">Clear</a></button>
                 </div>
             </div>

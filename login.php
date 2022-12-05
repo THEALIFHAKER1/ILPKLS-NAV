@@ -1,25 +1,30 @@
 <?php
 include "COMPONENT/DB/connection.php";
 include "COMPONENT/header.php";
-if (isset($_POST['ID'])) {
+if (isset($_POST["ID"])) {
     $ID = $_POST["ID"];
     $PASS = $_POST["PASS"];
-    $query = mysqli_query($con, "SELECT * FROM users WHERE ID='$ID' AND PASS='$PASS'");
+    $hash = md5($PASS);
+    $query = mysqli_query(
+        $con,
+        "SELECT * FROM users WHERE ID='$ID' AND PASS='$hash'"
+    );
     $count = mysqli_num_rows($query);
     if (mysqli_num_rows($query) == 0) {
+        echo $hash;
     } else {
         $row = mysqli_fetch_assoc($query);
         $_SESSION["ID"] = $row["ID"];
         $_SESSION["NAME"] = $row["NAME"];
         $_SESSION["ACCESS"] = $row["ACCESS"];
-    
+
         if ($row["ACCESS"] == "admin") {
             header("Location: dashboard_admin.php");
-        } elseif($row["ACCESS"] == "management") {
+        } elseif ($row["ACCESS"] == "management") {
             header("Location: dashboard_management.php");
         }
     }
-    }
+}
 ?>
 <section class="bg-gray-50 dark:bg-gray-900">
   <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
@@ -30,7 +35,7 @@ if (isset($_POST['ID'])) {
               </h1>
               <form class="space-y-4 md:space-y-6" method="post">
                   <div>
-                      <label for="ID" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Admin ID</label>
+                      <label for="ID" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your ID</label>
                       <input type="text" name="ID" id="ID" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="ID" required="">
                   </div>
                   <div>

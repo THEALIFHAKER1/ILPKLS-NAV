@@ -1,11 +1,16 @@
 <?php
 include "COMPONENT/DB/connection.php";
 include "COMPONENT/header.php";
-$PLACENAME = $_GET['PLACENAME'];
-if (isset($_POST['ID'])) {
+date_default_timezone_set("Asia/Kuala_lumpur");
+$PLACENAME = $_GET["PLACENAME"];
+if (isset($_POST["ID"])) {
     $ID = $_POST["ID"];
     $PASS = $_POST["PASS"];
-    $query = mysqli_query($con, "SELECT * FROM people WHERE ID='$ID' AND PASS='$PASS'");
+    $TIME = date("h:i:sa");
+    $query = mysqli_query(
+        $con,
+        "SELECT * FROM people WHERE ID='$ID' AND PASS='$PASS'"
+    );
     $count = mysqli_num_rows($query);
     if (mysqli_num_rows($query) == 0) {
     } else {
@@ -13,8 +18,9 @@ if (isset($_POST['ID'])) {
         $ID = $row["ID"];
         $result = mysqli_query(
             $con,
-            "UPDATE people SET LOCATION='$PLACENAME' WHERE ID='$ID'");
-            if ($result) { ?>
+            "UPDATE people SET LOCATION='$PLACENAME',TIME='$TIME' WHERE ID='$ID'"
+        );
+        if ($result) { ?>
                 <main x-data="app">
                     <button type="button" @click="closeToast()" x-show="open" x-transition.duration.300ms class="fixed top-4 right-4 z-50 rounded-md bg-green-500 px-4 py-2 text-white transition hover:bg-green-600">
                         <div class="flex items-center space-x-2">
@@ -34,8 +40,9 @@ if (isset($_POST['ID'])) {
                 </main>
                 <?php }
     }
-    }
+}
 ?>
+
 <section class="bg-gray-50 dark:bg-gray-900">
   <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
       <div class="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
