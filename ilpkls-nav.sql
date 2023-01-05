@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 22, 2022 at 09:57 AM
--- Server version: 10.4.25-MariaDB
--- PHP Version: 8.1.10
+-- Generation Time: Jan 04, 2023 at 07:07 PM
+-- Server version: 10.4.27-MariaDB
+-- PHP Version: 8.1.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -33,7 +33,7 @@ CREATE TABLE `memos` (
   `TAG` varchar(10) NOT NULL,
   `CONTENT` mediumtext NOT NULL,
   `DATE` timestamp NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `memos`
@@ -59,7 +59,7 @@ CREATE TABLE `people` (
   `TELE` varchar(40) NOT NULL,
   `LOCATION` varchar(100) NOT NULL,
   `TIME` time NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `people`
@@ -84,7 +84,7 @@ CREATE TABLE `places` (
   `DATEE` varchar(10) NOT NULL,
   `LINK` varchar(1000) NOT NULL,
   `MANAGERID` varchar(5) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `places`
@@ -118,7 +118,7 @@ CREATE TABLE `placesmemos` (
   `TAG` varchar(20) NOT NULL,
   `CONTENT` mediumtext NOT NULL,
   `DATE` datetime NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `placesmemos`
@@ -136,7 +136,7 @@ INSERT INTO `placesmemos` (`ID`, `PLACESID`, `TITLE`, `TAG`, `CONTENT`, `DATE`) 
 CREATE TABLE `tags` (
   `TAG` varchar(100) NOT NULL,
   `COLOR` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `tags`
@@ -156,17 +156,17 @@ CREATE TABLE `users` (
   `BIL` int(4) NOT NULL,
   `ID` varchar(5) NOT NULL,
   `NAME` text NOT NULL,
-  `PASS` varchar(20) NOT NULL,
+  `PASS` varchar(100) NOT NULL,
   `ACCESS` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `users`
 --
 
 INSERT INTO `users` (`BIL`, `ID`, `NAME`, `PASS`, `ACCESS`) VALUES
-(1, 'a1ts1', 'muhammad alif daniel', 'test', 'admin'),
-(3, 'm1ts1', 'syafiq adhamz', 'test', 'management');
+(1, 'a1ts1', 'muhammad alif daniel', '098f6bcd4621d373cade4e832627b4f6', 'admin'),
+(3, 'm1ts1', 'syafiq adhamz', '098f6bcd4621d373cade4e832627b4f6', 'management');
 
 --
 -- Indexes for dumped tables
