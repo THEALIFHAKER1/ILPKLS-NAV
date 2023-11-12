@@ -1,9 +1,8 @@
 <?php
 // Database credentials
 $db_host = 'localhost';
-$db_name = 'my_database';
-$db_user = 'my_user';
-$db_pass = 'my_password';
-
+$db_user = 'root';
+$db_name = 'ilpkls-nav';
+$db_pass = '';
 // API keys
 $api_key = 'your_api_key_here';
