@@ -14,4 +14,4 @@ include __DIR__ . '/../Env/database.php';
     <link rel="stylesheet" href="../Styles/main.css">
 </head>
 
-<body class="dark bg-background">
+<body class="dark bg-background pt-[10vh]">

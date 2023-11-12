@@ -1,10 +1,12 @@
 <?php
-include __DIR__ . '/../Env/env.php';
-
-try {
-    $pdo = new PDO("mysql:host=$db_host;dbname=$db_name", $db_user, $db_pass);
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-} catch (PDOException $e) {
-    echo '<h1 class="text-3xl font-bold underline text-red-500">' . $e->getMessage() . '</h1>';
+$host = "localhost";
+$user = "root";
+$password = "";
+$database = "ilpkls-nav";
+$con = mysqli_connect($host, $user, $password, $database);
+if (mysqli_connect_error()) {
+    echo "FAIL";
+    exit();
+} else {
 }
 ?>
