@@ -14,4 +14,20 @@ include __DIR__ . '/../Env/database.php';
     <link rel="stylesheet" href="../Styles/main.css">
 </head>
 
-<body class="dark bg-background pt-[10vh]">
+<body class="dark bg-background pt-[10vh] h-screen overflow-hidden">
+    <style>
+        .scrollbars::-webkit-scrollbar {
+            width: 10px;
+            height: 20px;
+        }
+
+
+        .scrollbars::-webkit-scrollbar-thumb {
+            background: #00a2ff;
+            border-radius: 100vh;
+        }
+
+        .scrollbar::-webkit-scrollbar-thumb:hover {
+            background: #00c3ff;
+        }
+    </style>

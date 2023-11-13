@@ -1,5 +1,6 @@
 <?php
 include 'Components/head.php';
+include 'Components/Card/Card.php';
 ?>
 
 <?php
@@ -10,23 +11,29 @@ $component = new Navbar([
 echo $component->render();
 ?>
 
-<div style="display: flex;">
-  <div style="width: 50%;">
+<div class="flex flex-row">
+  <div class="flex-[50%]">
     <?php
-    $sql = "SELECT * FROM users";
-    $result = mysqli_query($con, $sql);
-
-    if (mysqli_num_rows($result) > 0) {
-      // output data of each row
-      while ($row = mysqli_fetch_assoc($result)) {
-        echo "id: " . $row["id"] . " - Name: " . $row["name"] . "<br>";
-      }
-    } else {
-      echo "0 results";
-    }
+    $data = mysqli_query($con, "SELECT * FROM places");
+    $rowcount = mysqli_num_rows($data);
     ?>
+    <h1 class="text-xl text-white font-bold ml-10 mb-7">PLACES [
+      <?php echo $rowcount; ?> ]
+    </h1>
+    <div class="overflow-y-auto h-[calc(100vh-10rem)] scrollbars">
+      <?php while (
+        $info = mysqli_fetch_array($data)
+      ) { ?>
+        <?php
+        $component = new Card($info);
+        echo $component->render($info);
+        ?>
+      <?php } ?>
+    </div>
   </div>
-  <div style="width: 50%;">Right Box</div>
+  <div class="flex-[50%] rounded-l">
+
+  </div>
 </div>
 
 <?php

@@ -20,7 +20,7 @@ class Navbar
         }
 
         return "
-                <nav class=\"bg-background border-gray-200 w-full\" style=\"position: fixed; top: 0;\">
+                <nav class=\"z-50 bg-background border-gray-200 w-full\" style=\"position: fixed; top: 0;\">
                     <div class=\"max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4\">
                         <a href=\"./\" class=\"flex items-center space-x-3 rtl:space-x-reverse\">
                                 <img src=\"../Assets/Logo/Logo.png\" class=\"h-8\" alt=\"Flowbite Logo\" />
