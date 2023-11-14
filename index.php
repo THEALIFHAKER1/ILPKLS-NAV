@@ -57,7 +57,7 @@ $rowcount = $result->num_rows;
     }
 
     .scrollbars {
-      height: calc(100vh - 15rem);
+      height: calc(100vh - 20rem);
     }
   }
 
@@ -67,8 +67,41 @@ $rowcount = $result->num_rows;
     padding-left: 30px;
     padding-top: 10px;
   }
+
+  /* Add styles for search bar */
+  .search-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 10px;
+  }
+
+  .search-input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 50%;
+    margin-right: 10px;
+  }
+
+  .search-button {
+    cursor: pointer;
+    padding: 10px;
+    background-color: #ddd;
+    text-align: center;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+
+  .card {
+    display: block;
+  }
 </style>
 
+
+<div class="search-container">
+  <input type="text" class="search-input" id="searchInput" placeholder="Search...">
+  <div class="search-button" onclick="search()">Search</div>
+</div>
 
 <div class="tab-container">
   <div class="button-container">
@@ -86,7 +119,7 @@ $rowcount = $result->num_rows;
       ) { ?>
         <?php
         $component = new PlacesCard($info);
-        echo $component->render($info);
+        echo '<div class="card">' . $component->render($info) . '</div>';
         ?>
       <?php } ?>
     </div>
@@ -117,7 +150,7 @@ $rowcount = $result->num_rows;
         $tagdata = mysqli_query($con, "SELECT * FROM tags WHERE TAG='$TAG'");
         $taginfo = mysqli_fetch_array($tagdata);
         $component = new MemosCard($info, $taginfo);
-        echo $component->render($info, $taginfo);
+        echo '<div class="card">' . $component->render($info, $taginfo) . '</div>';
         ?>
       <?php } ?>
     </div>
@@ -125,6 +158,23 @@ $rowcount = $result->num_rows;
 </div>
 
 <script>
+  function search() {
+    var searchInput = document.getElementById('searchInput').value;
+    var tabContent = document.querySelectorAll('.tab-content.active');
+
+    tabContent.forEach(function (tab) {
+      var cards = tab.querySelectorAll('.card');
+
+      cards.forEach(function (card) {
+        var cardText = card.innerText.toLowerCase();
+        if (cardText.includes(searchInput.toLowerCase())) {
+          card.style.display = 'block';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    });
+  }
   function openTab(tabName) {
     var i, tabContent;
 
