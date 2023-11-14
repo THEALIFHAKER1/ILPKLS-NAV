@@ -97,24 +97,8 @@ $rowcount = $result->num_rows;
     display: block;
 
   }
-
-  /* Apply animation to all elements except body */
-  .container {
-    animation: fadeIn 0.5s ease-in-out;
-  }
-
-  /* Add animation for fade in effect */
-  @keyframes fadeIn {
-    from {
-      opacity: 0;
-    }
-
-    to {
-      opacity: 1;
-    }
-  }
 </style>
-<div class="container">
+<div class="fade">
   <!-- Search bar -->
   <div class="search-container">
     <input type="text" class="search-input" id="searchInput" placeholder="Search...">

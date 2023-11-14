@@ -1,6 +1,7 @@
 <?php
 include __DIR__ . '/../Env/database.php';
 define('BASE_URL', $website_url);
+session_start();
 ?>
 
 <!DOCTYPE html>
@@ -34,13 +35,20 @@ define('BASE_URL', $website_url);
             background: #00c3ff;
         }
 
-        /* @media (max-width: 640px) {
-            .scrollbars {
-                overflow-x: scroll;
-                overflow-y: hidden;
-                white-space: nowrap;
+        .fade {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        /* Add animation for fade in effect */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
             }
-        } */
+
+            to {
+                opacity: 1;
+            }
+        }
     </style>
     <?php
     $currentPath = $_SERVER['REQUEST_URI'];
@@ -51,11 +59,12 @@ define('BASE_URL', $website_url);
         $component = new Navbar([
             ['url' => '/Pages/Login/login.php', 'text' => 'Login'],
         ], BASE_URL);
-    } else {
+    } else if (isset($_SESSION["ID"])) {
         $component = new Navbar([
             ['url' => '/', 'text' => 'Home'],
-            ['url' => '/Logout', 'text' => 'Logout'],
+            ['url' => '/Pages/Logout/logout.php', 'text' => 'Logout'],
         ], BASE_URL);
     }
     echo $component->render(BASE_URL);
+    echo $currentPath;
     ?>
