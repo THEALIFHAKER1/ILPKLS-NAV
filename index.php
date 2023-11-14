@@ -3,8 +3,55 @@ include 'Components/head.php';
 include 'Components/PlacesCard/PlacesCard.php';
 include 'Components/MemosCard/MemosCard.php';
 ?>
-<div class="flex flex-row">
-  <div class="flex-[50%]">
+
+<style>
+  /* Add styles for tabs */
+  .tab-container {
+    display: flex;
+    /* Change flex direction to row on desktop */
+    flex-direction: row;
+  }
+
+  .tab-button {
+    cursor: pointer;
+    padding: 10px;
+    background-color: #ddd;
+    text-align: center;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 10px;
+  }
+
+  .tab-content {
+    display: none;
+    /* Adjust width for desktop */
+    width: 50%;
+    /* You can adjust this based on your layout needs */
+  }
+
+  .tab-content.active {
+    display: block;
+  }
+
+  /* Add media query for mobile */
+  @media screen and (max-width: 768px) {
+    .tab-container {
+      flex-direction: column;
+    }
+
+    .tab-content {
+      width: 100%;
+      /* Make each section take full width on mobile */
+    }
+  }
+</style>
+
+
+<div class="tab-container">
+  <div class="tab-button" onclick="openTab('placesTab')">Places</div>
+  <div class="tab-button" onclick="openTab('memosTab')">Memos</div>
+
+  <div class="tab-content" id="placesTab">
     <?php
     $data = mysqli_query($con, "SELECT * FROM places");
     $rowcount = mysqli_num_rows($data);
@@ -23,7 +70,8 @@ include 'Components/MemosCard/MemosCard.php';
       <?php } ?>
     </div>
   </div>
-  <div class="flex-[50%] rounded-lg">
+
+  <div class="tab-content" id="memosTab">
     <?php
     $data = mysqli_query($con, "SELECT * FROM memos");
     $rowcount = mysqli_num_rows($data);
@@ -47,16 +95,50 @@ include 'Components/MemosCard/MemosCard.php';
   </div>
 </div>
 
+<script>
+  function openTab(tabName) {
+    var i, tabContent;
 
-<style>
-  /* if mobile */
-  @media (max-width: 640px) {
-    .flex-row {
-      flex-direction: column;
+    // Hide all tab content
+    tabContent = document.getElementsByClassName("tab-content");
+    for (i = 0; i < tabContent.length; i++) {
+      tabContent[i].classList.remove("active");
+    }
+
+    // Show the selected tab content
+    document.getElementById(tabName).classList.add("active");
+  }
+
+  function updateTabDisplay() {
+    var tabs = document.querySelectorAll('.tab-content');
+    var buttons = document.querySelectorAll('.tab-button');
+
+    if (window.innerWidth > 767) {
+      tabs.forEach(function (tab) {
+        tab.classList.add('active');
+      });
+      buttons.forEach(function (button) {
+        button.style.display = 'none';
+      });
+    } else {
+      tabs.forEach(function (tab) {
+        tab.classList.remove('active');
+      });
+      buttons.forEach(function (button) {
+        button.style.display = 'block';
+      });
     }
   }
-</style>
 
+  // Call openTab function to initially show the "Places" tab
+  openTab("placesTab");
+
+  // Check window width and update tab display
+  window.addEventListener('resize', updateTabDisplay);
+
+  // Trigger the resize event once to set the initial state
+  window.dispatchEvent(new Event('resize'));
+</script>
 <?php
 include 'Components/foot.php';
 ?>

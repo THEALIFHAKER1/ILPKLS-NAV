@@ -50,9 +50,8 @@ include __DIR__ . '/../Env/database.php';
         ]);
     } else {
         $component = new Navbar([
-            ['url' => '/login', 'text' => 'Login'],
-            ['url' => '/register', 'text' => 'Register'],
-
+            ['url' => '/', 'text' => 'Home'],
+            ['url' => '/Logout', 'text' => 'Logout'],
         ]);
     }
     echo $component->render();
