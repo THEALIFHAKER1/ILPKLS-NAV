@@ -1,0 +1,46 @@
+ILPKLS-NAV
+├── Assets
+│   ├── Login
+│   │   ├── JTM.png
+│   │   └── Login-background.jpg
+│   └── Logo
+│       └── Logo.png
+├── Components
+│   ├── CheckAccess
+│   │   └── CheckAccess.php
+│   ├── foot.php
+│   ├── head.php
+│   ├── Logout
+│   │   └── Logout.php
+│   ├── MemosCard
+│   │   └── MemosCard.php
+│   ├── MyComponent
+│   │   └── MyComponent.php
+│   ├── Navbar
+│   │   └── Navbar.php
+│   └── PlacesCard
+│       └── PlacesCard.php
+├── Env
+│   ├── database.php
+│   ├── env.php
+│   └── ilpkls-nav.sql
+├── ILPKLS-NAV.txt
+├── index.php
+├── Pages
+│   ├── Admin
+│   │   └── dashboard_admin.php
+│   ├── Home
+│   │   └── Home.php
+│   ├── Login
+│   │   └── login.php
+│   ├── Logout
+│   │   └── logout.php
+│   └── Manager
+│       └── dashboard_manager.php
+├── README.md
+├── Styles
+│   ├── main.css
+│   ├── Tailwind-input.css
+│   └── Tailwind-output.css
+├── tailwind.config.js
+└── tailwindcss.exe

@@ -1,15 +1,14 @@
 <?php
 class Navbar
 {
-    private $links, $website_url;
+    private $links;
 
-    public function __construct($links, $website_url)
+    public function __construct($links)
     {
         $this->links = $links;
-        $this->website_url = $website_url;
     }
 
-    public function render($website_url)
+    public function render()
     {
         $navLinks = '';
         foreach ($this->links as $link) {
@@ -23,7 +22,7 @@ class Navbar
                 <nav class=\"z-50 bg-background border-gray-200 w-full\" style=\"position: fixed; top: 0;\">
                     <div class=\" flex flex-wrap items-center justify-between mx-auto p-4\">
                         <a href=\"./\" class=\"flex items-center space-x-3 rtl:space-x-reverse\">
-                                <img src=\"{$website_url}/Assets/Logo/Logo.png\" class=\"h-8\" alt=\"Flowbite Logo\" />
+                                <img src=\"../../Assets/Logo/Logo.png\" class=\"h-8\" alt=\"Flowbite Logo\" />
                                 <span class=\"self-center text-2xl font-semibold whitespace-nowrap text-text\">ILPKLS-NAV</span>
                         </a>
                         <button data-collapse-toggle=\"navbar-default\" type=\"button\" class=\"inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600\" aria-controls=\"navbar-default\" aria-expanded=\"false\">

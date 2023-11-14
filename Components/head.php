@@ -1,8 +1,6 @@
 <?php
 session_start();
 include __DIR__ . '/../Env/database.php';
-define('BASE_URL', $website_url);
-echo BASE_URL;
 ?>
 
 <!DOCTYPE html>
@@ -12,10 +10,11 @@ echo BASE_URL;
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ILPKLS NAV</title>
-    <link rel="icon" href="<?php echo BASE_URL; ?>Assets/Logo/Logo.png">
-    <link rel="stylesheet" href="<?php echo BASE_URL; ?>Styles/Tailwind-input.css">
-    <link rel="stylesheet" href="<?php echo BASE_URL; ?>Styles/Tailwind-output.css">
-    <link rel="stylesheet" href="<?php echo BASE_URL; ?>Styles/main.css">
+    <link rel="icon" href="/../Assets/Logo/Logo.png">
+    <link rel="stylesheet" href="/../Styles/main.css">
+    <link rel="stylesheet" href="/../Styles/Tailwind-input.css">
+    <link rel="stylesheet" href="/../Styles/Tailwind-output.css">
+
 </head>
 
 <body class="dark bg-background pt-[10vh] h-screen overflow-hidden">
@@ -60,13 +59,13 @@ echo BASE_URL;
         $component = new Navbar([
             ['url' => '/', 'text' => 'Home'],
             ['url' => '/Pages/Logout/logout.php', 'text' => 'Logout'],
-        ], BASE_URL);
+        ]);
     } else {
         $component = new Navbar([
             ['url' => '/Pages/Login/login.php', 'text' => 'Login'],
             ['url' => '/', 'text' => 'Home'],
-        ], BASE_URL);
+        ]);
     }
-    echo $component->render(BASE_URL);
+    echo $component->render();
     // echo $currentPath;
     ?>
