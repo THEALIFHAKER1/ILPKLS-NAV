@@ -1,6 +1,6 @@
 <?php
 include 'Components/head.php';
-include 'Components/Card/Card.php';
+include 'Components/PlacesCard/PlacesCard.php';
 include 'Components/MemosCard/MemosCard.php';
 ?>
 <div class="flex flex-row">
@@ -17,7 +17,7 @@ include 'Components/MemosCard/MemosCard.php';
         $info = mysqli_fetch_array($data)
       ) { ?>
         <?php
-        $component = new Card($info);
+        $component = new PlacesCard($info);
         echo $component->render($info);
         ?>
       <?php } ?>
