@@ -95,72 +95,89 @@ $rowcount = $result->num_rows;
 
   .card {
     display: block;
+
+  }
+
+  /* Apply animation to all elements except body */
+  .container {
+    animation: fadeIn 0.5s ease-in-out;
+  }
+
+  /* Add animation for fade in effect */
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+
+    to {
+      opacity: 1;
+    }
   }
 </style>
-
-<!-- Search bar -->
-<div class="search-container">
-  <input type="text" class="search-input" id="searchInput" placeholder="Search...">
-  <div class="search-button" onclick="search()">Search</div>
-</div>
-
-<!-- Tabs -->
-<div class="tab-container">
-  <div class="button-container">
-    <div class="tab-button mr-5" onclick="openTab('placesTab')">Places</div>
-    <div class="tab-button" onclick="openTab('memosTab')">Memos</div>
+<div class="container">
+  <!-- Search bar -->
+  <div class="search-container">
+    <input type="text" class="search-input" id="searchInput" placeholder="Search...">
+    <div class="search-button" onclick="search()">Search</div>
   </div>
 
-  <!-- Places tab -->
-  <div class="tab-content" id="placesTab">
-    <h1 class="text-xl text-white font-bold ml-10 mb-7">PLACES [
-      <?php echo $rowcount; ?> ]
-    </h1>
-    <div class="overflow-y-auto h-[calc(100vh-10rem)] scrollbars">
-      <?php while (
-        $info = $result->fetch_assoc()
-      ) { ?>
-        <?php
-        $component = new PlacesCard($info);
-        echo '<div class="card">' . $component->render($info) . '</div>';
-        ?>
-      <?php } ?>
+  <!-- Tabs -->
+  <div class="tab-container">
+    <div class="button-container">
+      <div class="tab-button mr-5" onclick="openTab('placesTab')">Places</div>
+      <div class="tab-button" onclick="openTab('memosTab')">Memos</div>
+    </div>
+
+    <!-- Places tab -->
+    <div class="tab-content" id="placesTab">
+      <h1 class="text-xl text-white font-bold ml-10 mb-7">PLACES [
+        <?php echo $rowcount; ?> ]
+      </h1>
+      <div class="overflow-y-auto h-[calc(100vh-10rem)] scrollbars">
+        <?php while (
+          $info = $result->fetch_assoc()
+        ) { ?>
+          <?php
+          $component = new PlacesCard($info);
+          echo '<div class="card">' . $component->render($info) . '</div>';
+          ?>
+        <?php } ?>
+      </div>
+    </div>
+
+    <!-- Memos tab -->
+    <div class="tab-content" id="memosTab">
+      <?php
+      // Use lazy loading to load data only when it is needed
+      $limit = 5;
+      $offset = 0;
+      $stmt = $con->prepare("SELECT * FROM memos LIMIT ?, ?");
+      $stmt->bind_param("ii", $offset, $limit);
+
+      $stmt->execute();
+      $result = $stmt->get_result();
+
+      $rowcount = $result->num_rows;
+      ?>
+      <h1 class="text-xl text-white font-bold ml-10 mb-7">MEMOS [
+        <?php echo $rowcount; ?> ]
+      </h1>
+      <div class="overflow-y-auto h-[calc(100vh-10rem)] scrollbars">
+        <?php while (
+          $info = $result->fetch_assoc()
+        ) { ?>
+          <?php
+          $TAG = $info["TAG"];
+          $tagdata = mysqli_query($con, "SELECT * FROM tags WHERE TAG='$TAG'");
+          $taginfo = mysqli_fetch_array($tagdata);
+          $component = new MemosCard($info, $taginfo);
+          echo '<div class="card">' . $component->render($info, $taginfo) . '</div>';
+          ?>
+        <?php } ?>
+      </div>
     </div>
   </div>
-
-  <!-- Memos tab -->
-  <div class="tab-content" id="memosTab">
-    <?php
-    // Use lazy loading to load data only when it is needed
-    $limit = 5;
-    $offset = 0;
-    $stmt = $con->prepare("SELECT * FROM memos LIMIT ?, ?");
-    $stmt->bind_param("ii", $offset, $limit);
-
-    $stmt->execute();
-    $result = $stmt->get_result();
-
-    $rowcount = $result->num_rows;
-    ?>
-    <h1 class="text-xl text-white font-bold ml-10 mb-7">MEMOS [
-      <?php echo $rowcount; ?> ]
-    </h1>
-    <div class="overflow-y-auto h-[calc(100vh-10rem)] scrollbars">
-      <?php while (
-        $info = $result->fetch_assoc()
-      ) { ?>
-        <?php
-        $TAG = $info["TAG"];
-        $tagdata = mysqli_query($con, "SELECT * FROM tags WHERE TAG='$TAG'");
-        $taginfo = mysqli_fetch_array($tagdata);
-        $component = new MemosCard($info, $taginfo);
-        echo '<div class="card">' . $component->render($info, $taginfo) . '</div>';
-        ?>
-      <?php } ?>
-    </div>
-  </div>
 </div>
-
 <!-- JavaScript code -->
 <script>
   // Search function
