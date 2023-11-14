@@ -1,7 +1,8 @@
 <?php
+session_start();
 include __DIR__ . '/../Env/database.php';
 define('BASE_URL', $website_url);
-session_start();
+echo BASE_URL;
 ?>
 
 <!DOCTYPE html>
@@ -51,20 +52,21 @@ session_start();
         }
     </style>
     <?php
-    $currentPath = $_SERVER['REQUEST_URI'];
+    $currentPath = isset($_SERVER['REQUEST_URI']) ? $_SERVER['REQUEST_URI'] : 'default_value';
     ?>
     <?php
     include __DIR__ . '/../Components/Navbar/Navbar.php';
-    if ($currentPath == "/") {
-        $component = new Navbar([
-            ['url' => '/Pages/Login/login.php', 'text' => 'Login'],
-        ], BASE_URL);
-    } else if (isset($_SESSION["ID"])) {
+    if (isset($_SESSION["ID"])) {
         $component = new Navbar([
             ['url' => '/', 'text' => 'Home'],
             ['url' => '/Pages/Logout/logout.php', 'text' => 'Logout'],
         ], BASE_URL);
+    } else {
+        $component = new Navbar([
+            ['url' => '/Pages/Login/login.php', 'text' => 'Login'],
+            ['url' => '/', 'text' => 'Home'],
+        ], BASE_URL);
     }
     echo $component->render(BASE_URL);
-    echo $currentPath;
+    // echo $currentPath;
     ?>
