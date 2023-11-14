@@ -63,9 +63,8 @@ $rowcount = $result->num_rows;
 
   .button-container {
     display: flex;
-    justify-content: left;
+    justify-content: center;
     padding-left: 30px;
-    padding-top: 10px;
   }
 
   /* Add styles for search bar */
@@ -73,6 +72,7 @@ $rowcount = $result->num_rows;
     display: flex;
     justify-content: center;
     margin-bottom: 10px;
+    padding-top: 10px;
   }
 
   .search-input {
