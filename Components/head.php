@@ -30,4 +30,12 @@ include __DIR__ . '/../Env/database.php';
         .scrollbar::-webkit-scrollbar-thumb:hover {
             background: #00c3ff;
         }
+
+        /* @media (max-width: 640px) {
+            .scrollbars {
+                overflow-x: scroll;
+                overflow-y: hidden;
+                white-space: nowrap;
+            }
+        } */
     </style>
