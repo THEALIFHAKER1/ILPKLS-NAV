@@ -4,6 +4,12 @@ $db_host = 'localhost';
 $db_user = 'root';
 $db_name = 'ilpkls-nav';
 $db_pass = '';
-// API keys
-$website_url = 'http' . (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 's' : '') . '://' . $_SERVER['HTTP_HOST'] . '/';
-$api_key = 'your_api_key_here';
+// url
+// $website_url = 'http';
+// isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? $website_url .= 's' : '';
+// $website_url .= '://';
+// $website_url .= isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : 'localhost';
+// $website_url .= '/';
+// $website_url = 'http://localhost/ILPKLS-NAV/';
+// echo $website_url;
+$website_url = 'http://localhost/ILPKLS-NAV/';
