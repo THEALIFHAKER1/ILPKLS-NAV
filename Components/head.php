@@ -39,3 +39,21 @@ include __DIR__ . '/../Env/database.php';
             }
         } */
     </style>
+    <?php
+    $currentPath = $_SERVER['REQUEST_URI'];
+    ?>
+    <?php
+    include 'Components/Navbar/Navbar.php';
+    if ($currentPath == "/") {
+        $component = new Navbar([
+            ['url' => '/login', 'text' => 'Login'],
+        ]);
+    } else {
+        $component = new Navbar([
+            ['url' => '/login', 'text' => 'Login'],
+            ['url' => '/register', 'text' => 'Register'],
+
+        ]);
+    }
+    echo $component->render();
+    ?>

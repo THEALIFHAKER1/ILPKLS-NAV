@@ -3,15 +3,6 @@ include 'Components/head.php';
 include 'Components/Card/Card.php';
 include 'Components/MemosCard/MemosCard.php';
 ?>
-
-<?php
-include 'Components/Navbar/Navbar.php';
-$component = new Navbar([
-  ['url' => '/login', 'text' => 'Login'],
-]);
-echo $component->render();
-?>
-
 <div class="flex flex-row">
   <div class="flex-[50%]">
     <?php
