@@ -1,8 +1,9 @@
 <?php
 // Include head.php, PlacesCard.php, and MemosCard.php files
 include __DIR__ . '/../../Components/head.php';
-include 'Components/PlacesCard/PlacesCard.php';
-include 'Components/MemosCard/MemosCard.php';
+
+include __DIR__ . '/../../Components/PlacesCard/PlacesCard.php';
+include __DIR__ . '/../../Components/MemosCard/MemosCard.php';
 
 // Use prepared statements to prevent SQL injection attacks
 $stmt = $con->prepare("SELECT * FROM places LIMIT ?, ?");
@@ -99,6 +100,7 @@ $rowcount = $result->num_rows;
     }
 </style>
 <div class="fade">
+
     <!-- Search bar -->
     <div class="search-container">
         <input type="text" class="search-input" id="searchInput" placeholder="Search...">
