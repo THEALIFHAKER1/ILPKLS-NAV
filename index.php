@@ -1,4 +1,5 @@
 <?php
+// Include head.php, PlacesCard.php, and MemosCard.php files
 include 'Components/head.php';
 include 'Components/PlacesCard/PlacesCard.php';
 include 'Components/MemosCard/MemosCard.php';
@@ -97,18 +98,20 @@ $rowcount = $result->num_rows;
   }
 </style>
 
-
+<!-- Search bar -->
 <div class="search-container">
   <input type="text" class="search-input" id="searchInput" placeholder="Search...">
   <div class="search-button" onclick="search()">Search</div>
 </div>
 
+<!-- Tabs -->
 <div class="tab-container">
   <div class="button-container">
     <div class="tab-button mr-5" onclick="openTab('placesTab')">Places</div>
     <div class="tab-button" onclick="openTab('memosTab')">Memos</div>
   </div>
 
+  <!-- Places tab -->
   <div class="tab-content" id="placesTab">
     <h1 class="text-xl text-white font-bold ml-10 mb-7">PLACES [
       <?php echo $rowcount; ?> ]
@@ -125,6 +128,7 @@ $rowcount = $result->num_rows;
     </div>
   </div>
 
+  <!-- Memos tab -->
   <div class="tab-content" id="memosTab">
     <?php
     // Use lazy loading to load data only when it is needed
@@ -157,7 +161,9 @@ $rowcount = $result->num_rows;
   </div>
 </div>
 
+<!-- JavaScript code -->
 <script>
+  // Search function
   function search() {
     var searchInput = document.getElementById('searchInput').value;
     var tabContent = document.querySelectorAll('.tab-content.active');
@@ -175,6 +181,8 @@ $rowcount = $result->num_rows;
       });
     });
   }
+
+  // Open tab function
   function openTab(tabName) {
     var i, tabContent;
 
@@ -188,6 +196,7 @@ $rowcount = $result->num_rows;
     document.getElementById(tabName).classList.add("active");
   }
 
+  // Update tab display function
   function updateTabDisplay() {
     var tabs = document.querySelectorAll('.tab-content');
     var buttons = document.querySelectorAll('.tab-button');
@@ -212,7 +221,6 @@ $rowcount = $result->num_rows;
     }
   }
 
-
   // Call openTab function to initially show the "Places" tab
   openTab("placesTab");
 
@@ -222,6 +230,8 @@ $rowcount = $result->num_rows;
   // Trigger the resize event once to set the initial state
   window.dispatchEvent(new Event('resize'));
 </script>
+
 <?php
+// Include foot.php file
 include 'Components/foot.php';
 ?>
