@@ -43,13 +43,26 @@ include 'Components/MemosCard/MemosCard.php';
       width: 100%;
       /* Make each section take full width on mobile */
     }
+
+    .scrollbars {
+      height: calc(100vh - 15rem);
+    }
+  }
+
+  .button-container {
+    display: flex;
+    justify-content: left;
+    padding-left: 30px;
+    padding-top: 10px;
   }
 </style>
 
 
 <div class="tab-container">
-  <div class="tab-button" onclick="openTab('placesTab')">Places</div>
-  <div class="tab-button" onclick="openTab('memosTab')">Memos</div>
+  <div class="button-container">
+    <div class="tab-button mr-5" onclick="openTab('placesTab')">Places</div>
+    <div class="tab-button" onclick="openTab('memosTab')">Memos</div>
+  </div>
 
   <div class="tab-content" id="placesTab">
     <?php
@@ -127,8 +140,12 @@ include 'Components/MemosCard/MemosCard.php';
       buttons.forEach(function (button) {
         button.style.display = 'block';
       });
+
+      // Add this line to show the default "Places" tab on mobile
+      document.getElementById('placesTab').classList.add('active');
     }
   }
+
 
   // Call openTab function to initially show the "Places" tab
   openTab("placesTab");
