@@ -2,6 +2,18 @@
 include 'Components/head.php';
 include 'Components/PlacesCard/PlacesCard.php';
 include 'Components/MemosCard/MemosCard.php';
+
+// Use prepared statements to prevent SQL injection attacks
+$stmt = $con->prepare("SELECT * FROM places LIMIT ?, ?");
+$stmt->bind_param("ii", $offset, $limit);
+
+$offset = 0;
+$limit = 10;
+
+$stmt->execute();
+$result = $stmt->get_result();
+
+$rowcount = $result->num_rows;
 ?>
 
 <style>
@@ -65,16 +77,12 @@ include 'Components/MemosCard/MemosCard.php';
   </div>
 
   <div class="tab-content" id="placesTab">
-    <?php
-    $data = mysqli_query($con, "SELECT * FROM places");
-    $rowcount = mysqli_num_rows($data);
-    ?>
     <h1 class="text-xl text-white font-bold ml-10 mb-7">PLACES [
       <?php echo $rowcount; ?> ]
     </h1>
     <div class="overflow-y-auto h-[calc(100vh-10rem)] scrollbars">
       <?php while (
-        $info = mysqli_fetch_array($data)
+        $info = $result->fetch_assoc()
       ) { ?>
         <?php
         $component = new PlacesCard($info);
@@ -86,15 +94,23 @@ include 'Components/MemosCard/MemosCard.php';
 
   <div class="tab-content" id="memosTab">
     <?php
-    $data = mysqli_query($con, "SELECT * FROM memos");
-    $rowcount = mysqli_num_rows($data);
+    // Use lazy loading to load data only when it is needed
+    $limit = 5;
+    $offset = 0;
+    $stmt = $con->prepare("SELECT * FROM memos LIMIT ?, ?");
+    $stmt->bind_param("ii", $offset, $limit);
+
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    $rowcount = $result->num_rows;
     ?>
     <h1 class="text-xl text-white font-bold ml-10 mb-7">MEMOS [
       <?php echo $rowcount; ?> ]
     </h1>
     <div class="overflow-y-auto h-[calc(100vh-10rem)] scrollbars">
       <?php while (
-        $info = mysqli_fetch_array($data)
+        $info = $result->fetch_assoc()
       ) { ?>
         <?php
         $TAG = $info["TAG"];
