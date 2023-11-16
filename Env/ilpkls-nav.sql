@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Nov 14, 2023 at 04:43 AM
+-- Generation Time: Nov 16, 2023 at 06:29 PM
 -- Server version: 8.0.30
 -- PHP Version: 8.1.10
 
@@ -106,9 +106,20 @@ INSERT INTO `tags` (`TAG`, `COLOR`) VALUES
 --
 
 CREATE TABLE `users` (
-  `id` int NOT NULL,
-  `Name` varchar(30) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `BIL` int NOT NULL,
+  `ID` varchar(5) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `NAME` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `PASS` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `ACCESS` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`BIL`, `ID`, `NAME`, `PASS`, `ACCESS`) VALUES
+(1, 'a1ts1', 'muhammad alif daniel', '$2y$10$VGrln3vM8ctA/K/mXbdUwu1MIjrsifKAKjWZ6PvXqkY0YPS.n4kzW', 'admin'),
+(3, 'm1ts1', 'syafiq adhamz', '$2y$10$VGrln3vM8ctA/K/mXbdUwu1MIjrsifKAKjWZ6PvXqkY0YPS.n4kzW', 'manager');
 
 --
 -- Indexes for dumped tables
@@ -136,7 +147,7 @@ ALTER TABLE `tags`
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`BIL`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -158,7 +169,7 @@ ALTER TABLE `places`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+  MODIFY `BIL` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
